@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
         xmlns:local="clr-namespace:MifareApp_2._0"
         mc:Ignorable="d"     
+        DataContext="{Binding Path=Main, Source={StaticResource Locator}}"
         Background="{StaticResource BackgroundKey}"
         Title="MifareApp 2.0" 
         Height="350" Width="500" 
@@ -18,7 +19,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Content=" MIFARE 2.0" FontSize="40" Foreground="{StaticResource AppNameFontColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Grid.Row="0" Content=" MifareApp 2.0" FontSize="40" Foreground="{StaticResource AppNameFontColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -27,7 +28,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="Initialize Card" />
+            <Button Grid.Column="0" Content="Initialize Card" Command="{Binding InitializeCardCommand}" />
             <Button Grid.Column="1" Content="Charge Discharge"/>
             <Button Grid.Column="2" Content="Create Service"/>
 
