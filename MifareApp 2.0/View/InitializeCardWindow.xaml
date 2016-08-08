@@ -26,8 +26,8 @@
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
-            <MenuItem Header="_Ustawienia">
-                <MenuItem Header="_Ustawienia kluczy"/>
+            <MenuItem Header="_Menu">
+                <MenuItem Header="_Settings"/>
             </MenuItem>
         </Menu>
 
@@ -41,16 +41,22 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Card reader:" Margin="5,5,5,5"/>
                 <ComboBox Grid.Row="0" Grid.Column="1" Width="Auto" Margin="5,5,5,5" ItemsSource="{Binding Readers}"  DisplayMemberPath="Name" SelectedValue="{Binding Path=SelectedReader, Mode=TwoWay}" />
-                <Label Grid.Row="0" Grid.Column="3" Content="UID:" Margin="5,5,5,5"/>
+                <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" Margin="5,5,5,5">
+                    <Label Content="UID: "/>
+                    <Label Content="{Binding Path=UID}"/>
+                </StackPanel>
+
 
                 <Label Grid.Row="1" Grid.Column="0" Content="Key:" Margin="5,5,5,5"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedReader.Name}"  MaxLength="12" Margin="5,5,5,5"/>
-                <Button Grid.Row="1" Grid.Column="3" Content="CONNECT" Margin="5,5,5,5" />
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=Key}"  MaxLength="12" Margin="5,5,5,5"/>
+                <Button Grid.Row="1" Grid.Column="2" Content="CONNECT" Margin="5,5,5,5" Command="{Binding ConnectCommand}" />
+                <CheckBox Grid.Row="2" Grid.Column="1" Content="MAD card"/>
 
             </Grid>
         </GroupBox>
@@ -65,7 +71,7 @@
 
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Sector 0  Block 3:" Margin="5,5,5,5"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="FFFFFFFFFFFFC5894500000000000" IsReadOnly="True" MaxLength="12" Margin="5,5,5,5"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=MadBlockContent}" IsReadOnly="True" MaxLength="12" Margin="5,5,5,5"/>
                 <Button Grid.Row="0" Grid.Column="3" Content="INITIALIZE MAD" Margin="5,5,5,5" />
 
             </Grid>
@@ -88,18 +94,18 @@
 
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Service:" Margin="5,5,5,5"/>
-                <ComboBox Grid.Row="0" Grid.Column="1" Width="Auto" Margin="5,5,5,5" />
+                <ComboBox Grid.Row="0" Grid.Column="1" Width="Auto" Margin="5,5,5,5" ItemsSource="{Binding Services}"  DisplayMemberPath="Name" SelectedValue="{Binding Path=SelectedService, Mode=TwoWay}"/>
 
                 <Label Grid.Row="1" Grid.Column="0" Content="Key A:" Margin="5,5,5,5"/>
-                <TextBox Grid.Row="1" Grid.Column="1" MaxLength="12" IsReadOnly="True" Margin="5,5,5,5"/>
+                <TextBox Grid.Row="1" Grid.Column="1" MaxLength="12" IsReadOnly="True" Margin="5,5,5,5" Text="{Binding Path=KeyA}"/>
 
                 <Label Grid.Row="2" Grid.Column="0" Content="Access bits:" Margin="5,5,5,5"/>
-                <TextBox Grid.Row="2" Grid.Column="1" MaxLength="6" IsReadOnly="True" Margin="5,5,5,5"/>
+                <TextBox Grid.Row="2" Grid.Column="1" MaxLength="6" IsReadOnly="True" Margin="5,5,5,5" Text="{Binding Path=AccessBits}"/>
 
                 <Label Grid.Row="3" Grid.Column="0" Content="Key B:" Margin="5,5,5,5"/>
-                <TextBox Grid.Row="3" Grid.Column="1" MaxLength="12" IsReadOnly="True" Margin="5,5,5,5"/>
+                <TextBox Grid.Row="3" Grid.Column="1" MaxLength="12" IsReadOnly="True" Margin="5,5,5,5" Text="{Binding Path=KeyB}"/>
 
-                <Button Grid.Row="4" Grid.Column="3" Content="SAVE" Margin="5,5,5,5" />
+                <Button Grid.Row="4" Grid.Column="3" Content="SAVE" Margin="5,5,5,5" Command="{Binding SaveServiceCommand}" />
 
             </Grid>
         </GroupBox>

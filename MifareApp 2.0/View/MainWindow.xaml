@@ -2,7 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"        
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"    
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"         
         xmlns:local="clr-namespace:MifareApp_2._0"
         mc:Ignorable="d"     
         DataContext="{Binding Path=Main, Source={StaticResource Locator}}"
@@ -19,7 +20,18 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Content=" MifareApp 2.0" FontSize="40" Foreground="{StaticResource AppNameFontColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Grid.Row="0" 
+               Content="MifareApp 2.0" 
+               FontSize="40" 
+               Foreground="{StaticResource AppNameFontColor}" 
+               Visibility="{Binding Path=MainLabelVisibility, Converter={StaticResource BoolToVis}}" 
+               VerticalContentAlignment="Center" 
+               HorizontalContentAlignment="Center"/>
+        <Label Grid.Row="0" 
+               Content="{Binding DescriptionLabel}"                                
+               Visibility="{Binding Path=DescriptionLabelVisibility, Converter={StaticResource BoolToVis}}" 
+               VerticalContentAlignment="Center" 
+               HorizontalContentAlignment="Center"/>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -28,9 +40,29 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="Initialize Card" Command="{Binding InitializeCardCommand}" />
-            <Button Grid.Column="1" Content="Charge Discharge" Command="{Binding ChargeDischargeCommand}"/>
-            <Button Grid.Column="2" Content="Create Service" Command="{Binding CreateServiceCommand}"/>
+            <Button Grid.Column="0" Content="Initialize Card" Command="{Binding InitializeCardCommand}" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseEnter" >
+                        <i:InvokeCommandAction Command="{Binding MouseOverInitializeCard}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+
+            <Button Grid.Column="1" Content="Charge Discharge" Command="{Binding ChargeDischargeCommand}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseEnter" >
+                        <i:InvokeCommandAction Command="{Binding MouseOverChargeDischarge}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+
+            <Button Grid.Column="2" Content="Create Service" Command="{Binding CreateServiceCommand}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseEnter" >
+                        <i:InvokeCommandAction Command="{Binding MouseOverCreateService}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
 
         </Grid>
 

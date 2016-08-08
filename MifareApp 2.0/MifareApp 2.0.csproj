@@ -107,6 +107,7 @@
     </ApplicationDefinition>
     <Compile Include="Constants.cs" />
     <Compile Include="Model\CardReader.cs" />
+    <Compile Include="Model\Service.cs" />
     <Compile Include="ViewModel\InitializeCardViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

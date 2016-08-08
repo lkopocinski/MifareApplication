@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace MifareApp_2._0.Model
 {
-    class Service
+    public class Service
     {
+        public string Name { get; set; }
+
+        public Service(string name)
+        {
+            Name = name;
+        }
     }
 }
