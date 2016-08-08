@@ -1,0 +1,107 @@
+﻿<Window x:Class="MifareApp_2._0.View.InitializeCardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MifareApp_2._0.View"
+        mc:Ignorable="d"
+        Background="{StaticResource BackgroundKey}"
+        Title="InitializeCard" 
+        Height="Auto" 
+        Width="700">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+            <MenuItem Header="_Ustawienia">
+                <MenuItem Header="_Ustawienia kluczy"/>
+            </MenuItem>
+        </Menu>
+
+        <GroupBox Grid.Row="1" Grid.Column="1" Header="Connection" Margin="0,10,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Card reader:" Margin="5,5,5,5"/>
+                <ComboBox Grid.Row="0" Grid.Column="1" Width="Auto" Margin="5,5,5,5" />
+                <Label Grid.Row="0" Grid.Column="3" Content="UID:" Margin="5,5,5,5"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Key:" Margin="5,5,5,5"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="FFFFFFFFFFFF"  MaxLength="12" Margin="5,5,5,5"/>
+                <Button Grid.Row="1" Grid.Column="3" Content="CONNECT" Margin="5,5,5,5" />
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="2" Grid.Column="1" Header="MAD" Margin="0,10,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Sector 0  Block 3:" Margin="5,5,5,5"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="FFFFFFFFFFFFC5894500000000000" IsReadOnly="True" MaxLength="12" Margin="5,5,5,5"/>
+                <Button Grid.Row="0" Grid.Column="3" Content="INITIALIZE MAD" Margin="5,5,5,5" />
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="3" Grid.Column="1" Header="Service Activation" Margin="0,10,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Service:" Margin="5,5,5,5"/>
+                <ComboBox Grid.Row="0" Grid.Column="1" Width="Auto" Margin="5,5,5,5" />
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Key A:" Margin="5,5,5,5"/>
+                <TextBox Grid.Row="1" Grid.Column="1" MaxLength="12" IsReadOnly="True" Margin="5,5,5,5"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Content="Access bits:" Margin="5,5,5,5"/>
+                <TextBox Grid.Row="2" Grid.Column="1" MaxLength="6" IsReadOnly="True" Margin="5,5,5,5"/>
+
+                <Label Grid.Row="3" Grid.Column="0" Content="Key B:" Margin="5,5,5,5"/>
+                <TextBox Grid.Row="3" Grid.Column="1" MaxLength="12" IsReadOnly="True" Margin="5,5,5,5"/>
+
+                <Button Grid.Row="4" Grid.Column="3" Content="SAVE" Margin="5,5,5,5" />
+
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+</Window>

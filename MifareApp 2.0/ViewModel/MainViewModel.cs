@@ -1,6 +1,7 @@
 using System;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace MifareApp_2._0.ViewModel
 {
@@ -22,17 +23,17 @@ namespace MifareApp_2._0.ViewModel
 
         private void InitializeCardMethod()
         {
-            throw new NotImplementedException();
+            Messenger.Default.Send(new NotificationMessage(Constants.SHOW_INITIALIZE_CARD_WINDOW));
         }
 
         private void ChargeDischargeMethod()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         private void CreateServiceMethod()
         {
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
     }
 }

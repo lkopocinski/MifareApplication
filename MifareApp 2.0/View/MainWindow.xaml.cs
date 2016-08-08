@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Messaging;
+using MifareApp_2._0.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,17 @@ namespace MifareApp_2._0
         public MainWindow()
         {
             InitializeComponent();
+            Messenger.Default.Register<NotificationMessage>(this, NotificationMessageReceived);
         }
+
+
+        private void NotificationMessageReceived(NotificationMessage msg)
+        {
+            if (msg.Notification == Constants.SHOW_INITIALIZE_CARD_WINDOW)
+            {
+                new InitializeCardWindow().Show();
+            }
+        }
+
     }
 }
