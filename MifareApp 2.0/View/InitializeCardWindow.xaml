@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MifareApp_2._0.View"
         mc:Ignorable="d"
+         DataContext="{Binding Path=InitializeCard, Source={StaticResource Locator}}"
         Background="{StaticResource BackgroundKey}"
         Title="InitializeCard" 
         Height="Auto" 
@@ -44,11 +45,11 @@
 
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Card reader:" Margin="5,5,5,5"/>
-                <ComboBox Grid.Row="0" Grid.Column="1" Width="Auto" Margin="5,5,5,5" />
+                <ComboBox Grid.Row="0" Grid.Column="1" Width="Auto" Margin="5,5,5,5" ItemsSource="{Binding Readers}"  DisplayMemberPath="Name" SelectedValue="{Binding Path=SelectedReader, Mode=TwoWay}" />
                 <Label Grid.Row="0" Grid.Column="3" Content="UID:" Margin="5,5,5,5"/>
 
                 <Label Grid.Row="1" Grid.Column="0" Content="Key:" Margin="5,5,5,5"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="FFFFFFFFFFFF"  MaxLength="12" Margin="5,5,5,5"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedReader.Name}"  MaxLength="12" Margin="5,5,5,5"/>
                 <Button Grid.Row="1" Grid.Column="3" Content="CONNECT" Margin="5,5,5,5" />
 
             </Grid>

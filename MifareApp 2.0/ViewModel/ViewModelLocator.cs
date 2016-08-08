@@ -43,6 +43,7 @@ namespace MifareApp_2._0.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<InitializeCardViewModel>();
         }
 
         public MainViewModel Main
@@ -52,7 +53,15 @@ namespace MifareApp_2._0.ViewModel
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
-        
+
+        public InitializeCardViewModel InitializeCard
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<InitializeCardViewModel>();
+            }
+        }
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

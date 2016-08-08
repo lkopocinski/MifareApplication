@@ -106,6 +106,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Constants.cs" />
+    <Compile Include="Model\CardReader.cs" />
+    <Compile Include="ViewModel\InitializeCardViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="View\InitializeCardWindow.xaml">
@@ -179,9 +181,7 @@
   <ItemGroup>
     <Resource Include="Themes\MetroDark\HowToApplyTheme.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
