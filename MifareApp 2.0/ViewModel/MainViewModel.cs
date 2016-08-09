@@ -70,7 +70,7 @@ namespace MifareApp_2._0.ViewModel
 
         private void CreateServiceMethod()
         {
-            // throw new NotImplementedException();
+            Messenger.Default.Send(new NotificationMessage(Constants.SHOW_CREATE_SERVICE_WINDOW));
         }
 
         private void ShowMainLabel()

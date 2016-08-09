@@ -1,0 +1,21 @@
+﻿using GalaSoft.MvvmLight;
+using PropertyChanged;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MifareApp_2._0.ViewModel
+{
+    [ImplementPropertyChanged]
+    public class CreateServiceViewModel : ViewModelBase
+    {
+
+        public CreateServiceViewModel()
+        {
+
+        }
+
+    }
+}

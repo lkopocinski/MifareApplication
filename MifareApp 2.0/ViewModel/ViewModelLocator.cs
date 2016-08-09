@@ -45,6 +45,7 @@ namespace MifareApp_2._0.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<InitializeCardViewModel>();
             SimpleIoc.Default.Register<ChargeDischargeViewModel>();
+            SimpleIoc.Default.Register<CreateServiceViewModel>();
         }
 
         public MainViewModel Main
@@ -68,6 +69,14 @@ namespace MifareApp_2._0.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<ChargeDischargeViewModel>();
+            }
+        }
+
+        public CreateServiceViewModel CreateService
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<CreateServiceViewModel>();
             }
         }
 

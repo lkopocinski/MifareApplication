@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using MifareApp_2._0.Model;
 using PropertyChanged;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 namespace MifareApp_2._0.ViewModel
 {
     [ImplementPropertyChanged]
-    public class ChargeDischargeViewModel
+    public class ChargeDischargeViewModel : ViewModelBase
     {
         #region Connection
 

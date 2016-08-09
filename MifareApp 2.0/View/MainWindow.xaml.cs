@@ -28,7 +28,6 @@ namespace MifareApp_2._0
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageReceived);
         }
 
-
         private void NotificationMessageReceived(NotificationMessage msg)
         {
             if (msg.Notification == Constants.SHOW_INITIALIZE_CARD_WINDOW)
@@ -40,7 +39,11 @@ namespace MifareApp_2._0
             {
                 new ChargeDischargeWindow().Show();
             }
-        }
 
+            if (msg.Notification == Constants.SHOW_CREATE_SERVICE_WINDOW)
+            {
+                new CreateService().Show();
+            }
+        }
     }
 }
