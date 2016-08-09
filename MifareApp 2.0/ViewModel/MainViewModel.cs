@@ -12,9 +12,11 @@ namespace MifareApp_2._0.ViewModel
         public bool MainLabelVisibility { get; set; }
         public string DescriptionLabel { get; set; }
         public bool DescriptionLabelVisibility { get; set; }
+
         public RelayCommand CreateServiceCommand { get; private set; }
         public RelayCommand ChargeDischargeCommand { get; private set; }
         public RelayCommand InitializeCardCommand { get; private set; }
+
         public ICommand MouseOverDescription { get; private set; }
         public ICommand MouseOverInitializeCard { get; private set; }
         public ICommand MouseOverChargeDischarge { get; private set; }
@@ -29,7 +31,6 @@ namespace MifareApp_2._0.ViewModel
             MouseOverInitializeCard = new RelayCommand(MouseOverInitializeCardMethod);
             MouseOverChargeDischarge = new RelayCommand(MouseOverChargeDischargeMethod);
             MouseOverCreateService = new RelayCommand(MouseOverCreateServiceMethod);
-
 
             InitializeCardCommand = new RelayCommand(InitializeCardMethod);
             ChargeDischargeCommand = new RelayCommand(ChargeDischargeMethod);
@@ -64,7 +65,7 @@ namespace MifareApp_2._0.ViewModel
 
         private void ChargeDischargeMethod()
         {
-            //throw new NotImplementedException();
+            Messenger.Default.Send(new NotificationMessage(Constants.SHOW_CHARGE_DISCHARGE_WINDOW));
         }
 
         private void CreateServiceMethod()

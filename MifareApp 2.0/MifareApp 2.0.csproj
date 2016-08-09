@@ -108,9 +108,14 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Model\CardReader.cs" />
     <Compile Include="Model\Service.cs" />
+    <Compile Include="ViewModel\ChargeDischargeViewModel.cs" />
     <Compile Include="ViewModel\InitializeCardViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Page Include="View\ChargeDischargeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\InitializeCardWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -122,6 +127,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="View\ChargeDischargeWindow.xaml.cs">
+      <DependentUpon>ChargeDischargeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\InitializeCardWindow.xaml.cs">
       <DependentUpon>InitializeCardWindow.xaml</DependentUpon>

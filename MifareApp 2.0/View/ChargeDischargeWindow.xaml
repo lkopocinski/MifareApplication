@@ -1,17 +1,16 @@
-﻿<Window x:Class="MifareApp_2._0.View.InitializeCardWindow"
+﻿<Window x:Class="MifareApp_2._0.View.ChargeDischargeWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MifareApp_2._0.View"
         mc:Ignorable="d"
-         DataContext="{Binding Path=InitializeCard, Source={StaticResource Locator}}"
+        DataContext="{Binding Path=ChargeDischarge, Source={StaticResource Locator}}"
         Background="{StaticResource BackgroundKey}"
-        Title="InitializeCard"         
-        Height="600" Width="850"        
-        MinHeight="600" MinWidth="850"
-        MaxHeight="600" MaxWidth="850">
-
+        Title="ChargeDischargeWindow" 
+        Height="450" Width="850"        
+        MinHeight="450" MinWidth="850"
+        MaxHeight="450" MaxWidth="850">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -22,17 +21,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
-            <MenuItem Header="_Menu">
-                <MenuItem Header="_Settings"/>
-            </MenuItem>
-        </Menu>
-
-        <GroupBox Grid.Row="1" Grid.Column="1" Header="Connection" Margin="0,10,0,0">
+        <GroupBox Grid.Row="0" Grid.Column="1" Header="Connection" Margin="0,10,0,0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
@@ -53,32 +44,11 @@
                     <Label Content="{Binding Path=UID}"/>
                 </StackPanel>
 
-
-                <Label Grid.Row="1" Grid.Column="0" Content="Key:" Margin="5,5,5,5"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=Key}"  MaxLength="12" Margin="5,5,5,5"/>
                 <Button Grid.Row="1" Grid.Column="2" Content="CONNECT" Margin="5,5,5,5" Command="{Binding ConnectCommand}" />
-                <CheckBox Grid.Row="2" Grid.Column="1" Content="MAD card" IsChecked="{Binding IsMadCard}"/>
-
             </Grid>
         </GroupBox>
 
-        <GroupBox Grid.Row="2" Grid.Column="1" Header="MAD" Margin="0,10,0,0">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="5*"/>
-                    <ColumnDefinition Width="3*"/>
-                </Grid.ColumnDefinitions>
-
-
-                <Label Grid.Row="0" Grid.Column="0" Content="Sector 0  Block 3:" Margin="5,5,5,5"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=MadBlockContent}" IsReadOnly="True" MaxLength="12" Margin="5,5,5,5"/>
-                <Button Grid.Row="0" Grid.Column="2" Content="INITIALIZE MAD" Margin="5,5,5,5" />
-
-            </Grid>
-        </GroupBox>
-
-        <GroupBox Grid.Row="3" Grid.Column="1" Header="Service Activation" Margin="0,10,0,0">
+        <GroupBox Grid.Row="1" Grid.Column="1" Header="Electronic wallet" Margin="0,10,0,0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
@@ -90,23 +60,27 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Service:" Margin="5,5,5,5"/>
                 <ComboBox Grid.Row="0" Grid.Column="1" Width="Auto" Margin="5,5,5,5" ItemsSource="{Binding Services}"  DisplayMemberPath="Name" SelectedValue="{Binding Path=SelectedService, Mode=TwoWay}"/>
+                
+                <Label Grid.Row="1" Grid.Column="0" Content="Saldo:" Margin="5,5,5,5"/>
+                <Label Grid.Row="1" Grid.Column="1" Content="{Binding Saldo}" Margin="5,5,5,5"/>
 
-                <Label Grid.Row="1" Grid.Column="0" Content="Key A:" Margin="5,5,5,5"/>
-                <TextBox Grid.Row="1" Grid.Column="1" MaxLength="12" IsReadOnly="True" Margin="5,5,5,5" Text="{Binding Path=KeyA}"/>
-
-                <Label Grid.Row="2" Grid.Column="0" Content="Access bits:" Margin="5,5,5,5"/>
-                <TextBox Grid.Row="2" Grid.Column="1" MaxLength="6" IsReadOnly="True" Margin="5,5,5,5" Text="{Binding Path=AccessBits}"/>
-
-                <Label Grid.Row="3" Grid.Column="0" Content="Key B:" Margin="5,5,5,5"/>
-                <TextBox Grid.Row="3" Grid.Column="1" MaxLength="12" IsReadOnly="True" Margin="5,5,5,5" Text="{Binding Path=KeyB}"/>
-
-                <Button Grid.Row="4" Grid.Column="2" Content="SAVE" Margin="5,5,5,5" Command="{Binding SaveServiceCommand}" />
+                <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="70,20,70,20" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Button Grid.Column="0" Content="-" FontSize="30" Command="{Binding DecrementCommand}"  />
+                    <TextBox Grid.Column="1" Text="{Binding ValueToSave, Mode=TwoWay}" FontSize="23" HorizontalContentAlignment="Center"  />
+                    <Button  Grid.Column="2" Content="+" FontSize="20" Command="{Binding IncrementCommand}"  />
+                </Grid>
+                
+                <Button Grid.Row="3" Grid.Column="2" Content="CONFIRM" Margin="5,5,5,5" Command="{Binding ConfirmCommand}" />
 
             </Grid>
         </GroupBox>

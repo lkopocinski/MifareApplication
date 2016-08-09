@@ -9,6 +9,6 @@ namespace MifareApp_2._0
     public static class Constants
     {
         public static readonly string SHOW_INITIALIZE_CARD_WINDOW = "ShowInitializeWindow";
-        
+        public static readonly string SHOW_CHARGE_DISCHARGE_WINDOW = "ShowChargeDischargeWindow";
     }
 }

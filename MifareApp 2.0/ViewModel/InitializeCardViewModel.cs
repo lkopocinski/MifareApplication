@@ -21,6 +21,8 @@ namespace MifareApp_2._0.ViewModel
 
         public String Key { get; set; }
 
+        public bool IsMadCard { get; set; }
+
         public String UID { get; set; }
 
         public RelayCommand ConnectCommand { get; private set; }
@@ -54,7 +56,7 @@ namespace MifareApp_2._0.ViewModel
         public InitializeCardViewModel()
         {
             Readers = new List<CardReader>(new CardReader[] { new CardReader("Czytnik 1"), new CardReader("Czytnik 2") });
-            Key = "FFFFFFFFFFFF";
+            Key = "FFFFFFFFFFFF";            
 
             ConnectCommand = new RelayCommand(ConnectMethod);
             InitializeMadCommand = new RelayCommand(InitializeMadMethod);
@@ -64,7 +66,7 @@ namespace MifareApp_2._0.ViewModel
         
         private void ConnectMethod()
         {
-
+            UID = "930911";
         }
 
         private void InitializeMadMethod()

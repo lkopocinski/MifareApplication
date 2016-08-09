@@ -35,6 +35,11 @@ namespace MifareApp_2._0
             {
                 new InitializeCardWindow().Show();
             }
+
+            if (msg.Notification == Constants.SHOW_CHARGE_DISCHARGE_WINDOW)
+            {
+                new ChargeDischargeWindow().Show();
+            }
         }
 
     }
