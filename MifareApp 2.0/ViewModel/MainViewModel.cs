@@ -15,6 +15,7 @@ namespace MifareApp_2._0.ViewModel
         public RelayCommand CreateServiceCommand { get; private set; }
         public RelayCommand ChargeDischargeCommand { get; private set; }
         public RelayCommand InitializeCardCommand { get; private set; }
+        public ICommand MouseOverDescription { get; private set; }
         public ICommand MouseOverInitializeCard { get; private set; }
         public ICommand MouseOverChargeDischarge { get; private set; }
         public ICommand MouseOverCreateService { get; private set; }
@@ -24,6 +25,7 @@ namespace MifareApp_2._0.ViewModel
             MainLabelVisibility = true;
             DescriptionLabelVisibility = false;
 
+            MouseOverDescription = new RelayCommand(MouseOverDescriptionMethod);
             MouseOverInitializeCard = new RelayCommand(MouseOverInitializeCardMethod);
             MouseOverChargeDischarge = new RelayCommand(MouseOverChargeDischargeMethod);
             MouseOverCreateService = new RelayCommand(MouseOverCreateServiceMethod);
@@ -34,7 +36,12 @@ namespace MifareApp_2._0.ViewModel
             CreateServiceCommand = new RelayCommand(CreateServiceMethod);
 
         }
-        
+
+        private void MouseOverDescriptionMethod()
+        {
+            ShowMainLabel();
+        }
+
         private void MouseOverInitializeCardMethod()
         {
             ShowDescription("Application for defloration brandnew Mifare card and setting services on card");

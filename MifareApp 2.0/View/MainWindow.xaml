@@ -31,7 +31,13 @@
                Content="{Binding DescriptionLabel}"                                
                Visibility="{Binding Path=DescriptionLabelVisibility, Converter={StaticResource BoolToVis}}" 
                VerticalContentAlignment="Center" 
-               HorizontalContentAlignment="Center"/>
+               HorizontalContentAlignment="Center">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseEnter" >
+                    <i:InvokeCommandAction Command="{Binding MouseOverDescription}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Label>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
