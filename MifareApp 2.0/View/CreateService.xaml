@@ -8,12 +8,36 @@
         DataContext="{Binding Path=CreateService, Source={StaticResource Locator}}"
         Background="{StaticResource BackgroundKey}"
         Title="Create Service" 
-        Height="350" Width="500" 
-        MinHeight="350" MinWidth="500"
-        MaxHeight="350" MaxWidth="500">
+        Height="200" Width="850"        
+        MinHeight="200" MinWidth="850"
+        MaxHeight="200" MaxWidth="850">
     <Grid>
-        
-        
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="1" Margin="0,10,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Name:" Margin="5,5,5,5"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" MaxLength="12"  Margin="5,5,5,5" Text="{Binding Path=ServiceName}"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Sector:" Margin="5,5,5,5"/>
+            <ComboBox Grid.Row="1" Grid.Column="1" Margin="5,5,5,5" ItemsSource="{Binding Sectors}" DisplayMemberPath="Number" SelectedValue="{Binding Path=SelectedSector, Mode=TwoWay}" />
+
+            <Button Grid.Row="2" Grid.Column="2" Content="SAVE" Margin="5,5,5,5" Command="{Binding SaveServiceCommand}" />
+        </Grid>
+
     </Grid>
 </Window>

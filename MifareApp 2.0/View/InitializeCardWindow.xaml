@@ -47,7 +47,7 @@
 
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Card reader:" Margin="5,5,5,5"/>
-                <ComboBox Grid.Row="0" Grid.Column="1" Width="Auto" Margin="5,5,5,5" ItemsSource="{Binding Readers}"  DisplayMemberPath="Name" SelectedValue="{Binding Path=SelectedReader, Mode=TwoWay}" />
+                <ComboBox Grid.Row="0" Grid.Column="1" Margin="5,5,5,5" ItemsSource="{Binding Readers}"  DisplayMemberPath="Name" SelectedValue="{Binding Path=SelectedReader, Mode=TwoWay}" />
                 <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" Margin="5,5,5,5">
                     <Label Content="UID: "/>
                     <Label Content="{Binding Path=UID}"/>
@@ -95,7 +95,7 @@
 
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Service:" Margin="5,5,5,5"/>
-                <ComboBox Grid.Row="0" Grid.Column="1" Width="Auto" Margin="5,5,5,5" ItemsSource="{Binding Services}"  DisplayMemberPath="Name" SelectedValue="{Binding Path=SelectedService, Mode=TwoWay}"/>
+                <ComboBox Grid.Row="0" Grid.Column="1" Margin="5,5,5,5" ItemsSource="{Binding Services}"  DisplayMemberPath="Name" SelectedValue="{Binding Path=SelectedService, Mode=TwoWay}"/>
 
                 <Label Grid.Row="1" Grid.Column="0" Content="Key A:" Margin="5,5,5,5"/>
                 <TextBox Grid.Row="1" Grid.Column="1" MaxLength="12" IsReadOnly="True" Margin="5,5,5,5" Text="{Binding Path=KeyA}"/>
