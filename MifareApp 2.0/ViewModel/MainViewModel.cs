@@ -9,24 +9,25 @@ namespace MifareApp_2._0.ViewModel
 
     public class MainViewModel : ViewModelBase
     {
+        #region Main Window
+
         public bool MainLabelVisibility { get; set; }
         public string DescriptionLabel { get; set; }
         public bool DescriptionLabelVisibility { get; set; }
-
-        public RelayCommand CreateServiceCommand { get; private set; }
-        public RelayCommand ChargeDischargeCommand { get; private set; }
-        public RelayCommand InitializeCardCommand { get; private set; }
 
         public ICommand MouseOverDescription { get; private set; }
         public ICommand MouseOverInitializeCard { get; private set; }
         public ICommand MouseOverChargeDischarge { get; private set; }
         public ICommand MouseOverCreateService { get; private set; }
 
-        public MainViewModel()
-        {            
-            MainLabelVisibility = true;
-            DescriptionLabelVisibility = false;
+        public RelayCommand CreateServiceCommand { get; private set; }
+        public RelayCommand ChargeDischargeCommand { get; private set; }
+        public RelayCommand InitializeCardCommand { get; private set; }
+       
+        #endregion
 
+        public MainViewModel()
+        {                               
             MouseOverDescription = new RelayCommand(MouseOverDescriptionMethod);
             MouseOverInitializeCard = new RelayCommand(MouseOverInitializeCardMethod);
             MouseOverChargeDischarge = new RelayCommand(MouseOverChargeDischargeMethod);
@@ -36,6 +37,7 @@ namespace MifareApp_2._0.ViewModel
             ChargeDischargeCommand = new RelayCommand(ChargeDischargeMethod);
             CreateServiceCommand = new RelayCommand(CreateServiceMethod);
 
+            ShowMainLabel();
         }
 
         private void MouseOverDescriptionMethod()
@@ -58,6 +60,20 @@ namespace MifareApp_2._0.ViewModel
             ShowDescription("Application for creating new services");
         }
 
+        private void ShowMainLabel()
+        {
+            MainLabelVisibility = true;
+            DescriptionLabelVisibility = false;
+        }
+
+        private void ShowDescription(string description)
+        {
+            MainLabelVisibility = false;
+            DescriptionLabelVisibility = true;
+
+            DescriptionLabel = description;
+        }
+
         private void InitializeCardMethod()
         {
             Messenger.Default.Send(new NotificationMessage(Constants.SHOW_INITIALIZE_CARD_WINDOW));
@@ -71,20 +87,6 @@ namespace MifareApp_2._0.ViewModel
         private void CreateServiceMethod()
         {
             Messenger.Default.Send(new NotificationMessage(Constants.SHOW_CREATE_SERVICE_WINDOW));
-        }
-
-        private void ShowMainLabel()
-        {
-            MainLabelVisibility = true;
-            DescriptionLabelVisibility = false;            
-        }
-
-        private void ShowDescription(string description)
-        {
-            MainLabelVisibility = false;
-            DescriptionLabelVisibility = true;
-
-            DescriptionLabel = description;
-        }
+        }        
     }
 }

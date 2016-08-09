@@ -60,7 +60,7 @@
   <SolidColorBrush x:Key="ButtonHoverBorderBrush" Color="{StaticResource Color_004}" />
   <SolidColorBrush x:Key="ButtonPressedBackgroundBrush" Color="{StaticResource Color_024}" />
   <SolidColorBrush x:Key="ButtonPressedBorderBrush" Color="{StaticResource Color_024}" />
-
+   
   <!-- ComboBoxItem Brushes -->
   <SolidColorBrush x:Key="ComboBoxItemHoverBackgroundBrush" Color="{StaticResource Color_006}" />
   <SolidColorBrush x:Key="ComboBoxItemHoverBorderBrush" Color="{StaticResource Color_004}" />

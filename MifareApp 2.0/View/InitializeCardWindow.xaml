@@ -5,12 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MifareApp_2._0.View"
         mc:Ignorable="d"
-         DataContext="{Binding Path=InitializeCard, Source={StaticResource Locator}}"
+        DataContext="{Binding Path=InitializeCard, Source={StaticResource Locator}}"
         Background="{StaticResource BackgroundKey}"
-        Title="InitializeCard"         
+        Title="Initialize Card"         
         Height="600" Width="850"        
         MinHeight="600" MinWidth="850"
         MaxHeight="600" MaxWidth="850">
+
+    <Window.Resources>
+        <Style TargetType="Menu">
+            <Setter Property="Background" Value="{StaticResource BackgroundKey}" />
+            <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
+            <Setter Property="FontSize" Value="13.333" />
+        </Style>
+    </Window.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -56,13 +64,13 @@
 
                 <Label Grid.Row="1" Grid.Column="0" Content="Key:" Margin="5,5,5,5"/>
                 <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=Key}"  MaxLength="12" Margin="5,5,5,5"/>
-                <Button Grid.Row="1" Grid.Column="2" Content="CONNECT" Margin="5,5,5,5" Command="{Binding ConnectCommand}" />
+                <Button Grid.Row="1" Grid.Column="2" Content="CONNECT" Margin="5,5,5,5" Command="{Binding ConnectCommand}" IsEnabled="{Binding SelectedReader, Converter={StaticResource ObjectToBool}, Mode=OneWay}" />
                 <CheckBox Grid.Row="2" Grid.Column="1" Content="MAD card" IsChecked="{Binding IsMadCard}"/>
 
             </Grid>
         </GroupBox>
 
-        <GroupBox Grid.Row="2" Grid.Column="1" Header="MAD" Margin="0,10,0,0">
+        <GroupBox Grid.Row="2" Grid.Column="1" Header="MAD" Margin="0,10,0,0" IsEnabled="{Binding IsConnected, Mode=TwoWay}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
@@ -78,7 +86,7 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Grid.Row="3" Grid.Column="1" Header="Service Activation" Margin="0,10,0,0">
+        <GroupBox Grid.Row="3" Grid.Column="1" Header="Service Activation" Margin="0,10,0,0" IsEnabled="{Binding IsConnected, Mode=TwoWay}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>

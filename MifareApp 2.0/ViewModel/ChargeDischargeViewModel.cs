@@ -47,7 +47,7 @@ namespace MifareApp_2._0.ViewModel
         {
             Readers = new List<CardReader>(new CardReader[] { new CardReader("Czytnik 1"), new CardReader("Czytnik 2") });
 
-            Saldo = "00 00 00 00 ";
+            Saldo = "0";
             ValueToSave = "0";
 
             ConnectCommand = new RelayCommand(ConnectMethod);
@@ -73,7 +73,7 @@ namespace MifareApp_2._0.ViewModel
 
         private void ConfirmMethod()
         {
-            Saldo = (Int64.Parse(Saldo) + ValueToSave).ToString();
+            Saldo = (Int64.Parse(Saldo) + Int64.Parse(ValueToSave)).ToString();
         }
     }
 }

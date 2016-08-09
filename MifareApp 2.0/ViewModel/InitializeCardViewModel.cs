@@ -14,6 +14,7 @@ namespace MifareApp_2._0.ViewModel
     public class InitializeCardViewModel : ViewModelBase
     {
         #region Connection
+        public bool IsConnected { get; set; }
 
         public List<CardReader> Readers { get; set; }
 
@@ -29,15 +30,15 @@ namespace MifareApp_2._0.ViewModel
 
         #endregion
 
-        #region MAD
+        #region MAD        
 
         public RelayCommand InitializeMadCommand { get; private set; }
 
         public String MadBlockContent { get; set; }
-
+        
         #endregion
 
-        #region Service Activation
+        #region Service Activation        
 
         public List<Service> Services { get; set; }
 
@@ -56,7 +57,9 @@ namespace MifareApp_2._0.ViewModel
         public InitializeCardViewModel()
         {
             Readers = new List<CardReader>(new CardReader[] { new CardReader("Czytnik 1"), new CardReader("Czytnik 2") });
-            Key = "FFFFFFFFFFFF";            
+            Key = "FFFFFFFFFFFF";
+            
+            IsConnected = false;
 
             ConnectCommand = new RelayCommand(ConnectMethod);
             InitializeMadCommand = new RelayCommand(InitializeMadMethod);
@@ -67,6 +70,8 @@ namespace MifareApp_2._0.ViewModel
         private void ConnectMethod()
         {
             UID = "930911";
+            CardReader reader = SelectedReader;
+            IsConnected = true;
         }
 
         private void InitializeMadMethod()
@@ -77,6 +82,6 @@ namespace MifareApp_2._0.ViewModel
         private void SaveServiceMethod()
         {
             
-        }
+        }        
     }
 }
