@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MifareApp_2._0.View"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         DataContext="{Binding Path=ChargeDischarge, Source={StaticResource Locator}}"
         Background="{StaticResource BackgroundKey}"
@@ -63,7 +64,13 @@
                 </Grid.RowDefinitions>
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Service:" Margin="5,5,5,5"/>
-                <ComboBox Grid.Row="0" Grid.Column="1" Margin="5,5,5,5" ItemsSource="{Binding Services}"  DisplayMemberPath="Name" SelectedValue="{Binding Path=SelectedService, Mode=TwoWay}"/>
+                <ComboBox Grid.Row="0" Grid.Column="1" Margin="5,5,5,5" ItemsSource="{Binding Services}"  DisplayMemberPath="Name" SelectedValue="{Binding Path=SelectedService, Mode=TwoWay}"  >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged" >
+                            <i:InvokeCommandAction Command="{Binding ServiceSelectedCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
                 
                 <Label Grid.Row="1" Grid.Column="0" Content="Saldo:" Margin="5,5,5,5"/>
                 <Label Grid.Row="1" Grid.Column="1" Content="{Binding Saldo}" Margin="5,5,5,5"/>
@@ -74,8 +81,8 @@
                         <ColumnDefinition Width="4*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    
-                    <Button Grid.Column="0" Content="-" FontSize="30" Command="{Binding DecrementCommand}"  />
+
+                    <Button Grid.Column="0" Content="-" FontSize="30" Command="{Binding DecrementCommand}" IsEnabled="{Binding IsDecrementEnabled, Mode=TwoWay}"  />
                     <TextBox Grid.Column="1" Text="{Binding ValueToSave, Mode=TwoWay}" FontSize="23" HorizontalContentAlignment="Center"  />
                     <Button  Grid.Column="2" Content="+" FontSize="20" Command="{Binding IncrementCommand}"  />
                 </Grid>

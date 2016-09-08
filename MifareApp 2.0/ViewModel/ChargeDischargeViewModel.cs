@@ -35,6 +35,10 @@ namespace MifareApp_2._0.ViewModel
 
         public String ValueToSave { get; set; }
 
+        public Boolean IsDecrementEnabled { get; set; }
+
+        public RelayCommand ServiceSelectedCommand { get; private set; }
+
         public RelayCommand DecrementCommand { get; private set; }
 
         public RelayCommand IncrementCommand { get; private set; }
@@ -47,18 +51,35 @@ namespace MifareApp_2._0.ViewModel
         {
             Readers = new List<CardReader>(new CardReader[] { new CardReader("Czytnik 1"), new CardReader("Czytnik 2") });
 
+
+            Services = new List<Service>(new Service[] { new Service("Teatr Ateneum im. Stefana Jaracza w Warszawie"), new Service("Narodowe Forum Muzyki im. Witolda Lutosławskiego")});
             Saldo = "0";
             ValueToSave = "0";
-
+            
             ConnectCommand = new RelayCommand(ConnectMethod);
+
+            ServiceSelectedCommand = new RelayCommand(ServiceSelectedMethod);
             DecrementCommand = new RelayCommand(DecrementMethod);
             IncrementCommand = new RelayCommand(IncrementMethod);
             ConfirmCommand = new RelayCommand(ConfirmMethod);
         }
+        
 
         private void ConnectMethod()
         {
             UID = "930911";
+        }
+
+        private void ServiceSelectedMethod()
+        {
+            if (Saldo.Equals("0"))
+            {
+                IsDecrementEnabled = false;
+            }
+            else
+            {
+                IsDecrementEnabled = true;
+            }
         }
 
         private void DecrementMethod()
