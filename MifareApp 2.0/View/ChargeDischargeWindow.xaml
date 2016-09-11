@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:MifareApp_2._0.View"
         mc:Ignorable="d"
         DataContext="{Binding Path=ChargeDischarge, Source={StaticResource Locator}}"
@@ -40,8 +41,8 @@
                 <Label Grid.Row="0" Grid.Column="0" Content="Card reader:" Margin="5,5,5,5"/>
                 <ComboBox Grid.Row="0" Grid.Column="1" Width="Auto" Margin="5,5,5,5" ItemsSource="{Binding Readers}"  DisplayMemberPath="Name" SelectedValue="{Binding Path=SelectedReader, Mode=TwoWay}" />
                 <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" Margin="5,5,5,5">
-                    <Label Content="UID: "/>
-                    <Label Content="{Binding Path=UID}"/>
+                    <Label Content="User PIN: "/>
+                    <Label Content="{Binding Path=UserPin}"/>
                 </StackPanel>
 
                 <Button Grid.Row="1" Grid.Column="2" Content="CONNECT" Margin="5,5,5,5" Command="{Binding ConnectCommand}" />
@@ -63,8 +64,14 @@
                 </Grid.RowDefinitions>
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Service:" Margin="5,5,5,5"/>
-                <ComboBox Grid.Row="0" Grid.Column="1" Margin="5,5,5,5" ItemsSource="{Binding Services}"  DisplayMemberPath="Name" SelectedValue="{Binding Path=SelectedService, Mode=TwoWay}"/>
-                
+                <ComboBox Grid.Row="0" Grid.Column="1" Margin="5,5,5,5" ItemsSource="{Binding Services}"  DisplayMemberPath="Name" SelectedValue="{Binding Path=SelectedService, Mode=TwoWay}"  >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged" >
+                            <i:InvokeCommandAction Command="{Binding ServiceSelectedCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+
                 <Label Grid.Row="1" Grid.Column="0" Content="Saldo:" Margin="5,5,5,5"/>
                 <Label Grid.Row="1" Grid.Column="1" Content="{Binding Saldo}" Margin="5,5,5,5"/>
 
@@ -74,13 +81,13 @@
                         <ColumnDefinition Width="4*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    
-                    <Button Grid.Column="0" Content="-" FontSize="30" Command="{Binding DecrementCommand}"  />
+
+                    <Button Grid.Column="0" Content="-" FontSize="30" Command="{Binding DecrementCommand}" IsEnabled="{Binding IsDecrementEnabled, Mode=TwoWay}"  />
                     <TextBox Grid.Column="1" Text="{Binding ValueToSave, Mode=TwoWay}" FontSize="23" HorizontalContentAlignment="Center"  />
                     <Button  Grid.Column="2" Content="+" FontSize="20" Command="{Binding IncrementCommand}"  />
                 </Grid>
-                
-                <Button Grid.Row="3" Grid.Column="2" Content="CONFIRM" Margin="5,5,5,5" Command="{Binding ConfirmCommand}" />
+
+                <Button Grid.Row="3" Grid.Column="2" Content="CONFIRM" Margin="5,5,5,5" Command="{Binding ConfirmCommand}" IsEnabled="{Binding SelectedService, Converter={StaticResource ObjectToBool}, Mode=OneWay}"/>
 
             </Grid>
         </GroupBox>

@@ -21,6 +21,8 @@ namespace MifareApp_2._0.ViewModel
 
         public String UID { get; set; }
 
+        public String UserPin { get; set; }
+
         public RelayCommand ConnectCommand { get; private set; }
 
         #endregion
@@ -35,18 +37,25 @@ namespace MifareApp_2._0.ViewModel
 
         public String ValueToSave { get; set; }
 
+        public Boolean IsDecrementEnabled { get; set; }
+
+        public RelayCommand ServiceSelectedCommand { get; private set; }
+
         public RelayCommand DecrementCommand { get; private set; }
 
         public RelayCommand IncrementCommand { get; private set; }
 
         public RelayCommand ConfirmCommand { get; private set; }
 
+        public ServicesDaoImpl ServicesDaoImplement { get; set; }
+
         #endregion
+
+        public string status = "";
 
         public ChargeDischargeViewModel()
         {
-            Readers = new List<CardReader>(new CardReader[] { new CardReader("Czytnik 1"), new CardReader("Czytnik 2") });
-
+            Readers = new CardReader().getListReaders();
             Saldo = "0";
             ValueToSave = "0";
 
@@ -54,26 +63,130 @@ namespace MifareApp_2._0.ViewModel
             DecrementCommand = new RelayCommand(DecrementMethod);
             IncrementCommand = new RelayCommand(IncrementMethod);
             ConfirmCommand = new RelayCommand(ConfirmMethod);
+            ServiceSelectedCommand = new RelayCommand(ServiceSelectedMethod);
         }
 
         private void ConnectMethod()
         {
-            UID = "930911";
+            SelectedReader.sCardEstablishContext(out status);
+
+            if (SelectedReader.GetStatusChange(out status) == 0)
+            {
+                SelectedReader.Connect(out status);
+                SelectedReader.LoadKey(0, Constants.VIRGIN_MIFARE_KEY, out status);
+                SelectedReader.Authentication(3, 0, Constants.KEY_B, out status);
+
+                string uid = (SelectedReader.Read(0, out status));
+                if (uid != "")
+                {
+                    UID = uid.Substring(0, 8);
+
+                    SelectedReader.Connect(out status);
+                    SelectedReader.LoadKey(0, Constants.VIRGIN_MIFARE_KEY, out status);
+                    SelectedReader.Authentication(2, 0, Constants.KEY_B, out status);
+                    UserPin = (SelectedReader.Read(2, out status)).Substring(27, 5);
+
+                    ServicesDaoImplement = new ServicesDaoImpl();
+                    Services = ServicesDaoImplement.ExcludeServicesByCard(SelectedReader, Conversions.toHexByteArrayFromString(UID));
+                }
+                else
+                {
+                    // Card doesn't belong to Sambor & Kopociński Company
+                    // Access Denied
+                    UID = Constants.ACCESS_DENIED;
+                }
+            }
+
+            SelectedReader.Disconnect(out status);
+        }
+
+        private void ServiceSelectedMethod()
+        {
+            string key = Conversions.ToString((new Keys(Conversions.toHexByteArrayFromString(UID), 
+                                                        ServicesDaoImplement.GetService(SelectedService.Name).SectorNumber)).getB());
+            byte electronicWalletBlockNumber = Convert.ToByte(Convert.ToInt32((ServicesDaoImplement.GetService(SelectedService.Name).SectorNumber)) * 
+                                                     Constants.BLOCKS_IN_SECTOR + 
+                                                     Constants.ELECTRONIC_WALLET_BLOCK_NUMBER);
+
+            SelectedReader.Connect(out status);
+            SelectedReader.LoadKey(0, key, out status);
+            SelectedReader.Authentication(electronicWalletBlockNumber, 0, Constants.KEY_B, out status);
+
+            string electronicWalletContent = SelectedReader.Read(electronicWalletBlockNumber, out status);
+            int saldo = Convert.ToInt32(Convert.ToInt32(electronicWalletContent.Substring(0, 8), 16));
+            Saldo = saldo.ToString();
+
+            if (Saldo.Equals("0"))
+            {
+                IsDecrementEnabled = false;
+            }
+            else
+            {
+                IsDecrementEnabled = true;
+            }
+
+            SelectedReader.Disconnect(out status);
         }
 
         private void DecrementMethod()
         {
             ValueToSave =  (Int64.Parse(ValueToSave) - 1).ToString();
+
+            if ((Int64.Parse(ValueToSave) + Int64.Parse(Saldo)) == 0)
+            {
+                IsDecrementEnabled = false;
+            }
+            else
+            {
+                IsDecrementEnabled = true;
+            }
         }
 
         private void IncrementMethod()
         {
             ValueToSave = (Int64.Parse(ValueToSave) + 1).ToString();
+
+            if ((Int64.Parse(ValueToSave) + Int64.Parse(Saldo)) == 0)
+            {
+                IsDecrementEnabled = false;
+            }
+            else
+            {
+                IsDecrementEnabled = true;
+            }
         }
 
         private void ConfirmMethod()
         {
             Saldo = (Int64.Parse(Saldo) + Int64.Parse(ValueToSave)).ToString();
+
+            string key = Conversions.ToString((new Keys(Conversions.toHexByteArrayFromString(UID),
+                                                        ServicesDaoImplement.GetService(SelectedService.Name).SectorNumber)).getB());
+            byte electronicWalletBlockNumber = Convert.ToByte(Convert.ToInt32((ServicesDaoImplement.GetService(SelectedService.Name).SectorNumber)) *
+                                                     Constants.BLOCKS_IN_SECTOR +
+                                                     Constants.ELECTRONIC_WALLET_BLOCK_NUMBER);
+
+            SelectedReader.Connect(out status);
+            SelectedReader.LoadKey(0, key, out status);
+            SelectedReader.Authentication(electronicWalletBlockNumber, 0, Constants.KEY_B, out status);
+
+            if (Int64.Parse(ValueToSave) > 0)
+            {
+                for (int i = 0; i < Int64.Parse(ValueToSave); ++i)
+                {
+                    SelectedReader.Increment(electronicWalletBlockNumber, out status);
+                }
+            }
+            else if (Int64.Parse(ValueToSave) < 0)
+            {
+                for (int i = 0; i < Math.Abs(Int64.Parse(ValueToSave)); ++i)
+                {
+                    SelectedReader.Decrement(electronicWalletBlockNumber, out status);
+                }
+            }
+
+            ValueToSave = "0";
+            SelectedReader.Disconnect(out status);
         }
     }
 }
