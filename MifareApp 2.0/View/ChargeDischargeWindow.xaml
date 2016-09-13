@@ -70,7 +70,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </ComboBox>
-
+                
                 <Label Grid.Row="1" Grid.Column="0" Content="Saldo:" Margin="5,5,5,5"/>
                 <Label Grid.Row="1" Grid.Column="1" Content="{Binding Saldo}" Margin="5,5,5,5"/>
 

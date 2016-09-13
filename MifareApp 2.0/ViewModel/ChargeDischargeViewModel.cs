@@ -60,13 +60,14 @@ namespace MifareApp_2._0.ViewModel
             Readers = new CardReader().getListReaders();
             Saldo = "0";
             ValueToSave = "0";
-
+            
             ConnectCommand = new RelayCommand(ConnectMethod);
             DecrementCommand = new RelayCommand(DecrementMethod);
             IncrementCommand = new RelayCommand(IncrementMethod);
             ConfirmCommand = new RelayCommand(ConfirmMethod);
             ServiceSelectedCommand = new RelayCommand(ServiceSelectedMethod);
         }
+        
 
         private void ConnectMethod()
         {
