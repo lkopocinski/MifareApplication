@@ -14,10 +14,11 @@ namespace MifareApp_2._0
 
         public static readonly string VIRGIN_MIFARE_KEY = "FFFFFFFFFFFF";
         public static readonly string MAD_KEY = "A0A1A2A3A4A5";
+        public static readonly string SERVICE_ACCESS_BITS = "08778F00";
         public static readonly string EMPTY_BLOCK = "00000000000000000000000000000000";
         public static readonly string EMPTY_ELECTRONIC_WALLET = "00000000FFFFFFFF0000000010EF10EF";
         public static readonly string COMPANY_ID = "6B6F6368616D206D6F6A61206D616D65";
-        public static readonly string MAD_INITIAL_SECTOR_TRAILER = "A0A1A2A3A4A50C33CFC1" + VIRGIN_MIFARE_KEY;
+        public static readonly string MAD_INITIAL_SECTOR_TRAILER = "A0A1A2A3A4A50C33CFC1";
 
         public static readonly string CARD_RM = "CARD REMOVED";
         public static readonly string NOT_NONPERSONALIZED_CARD = "PERSONALIZED CARD";

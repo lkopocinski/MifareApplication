@@ -61,9 +61,16 @@ namespace MifareApp_2._0.Model
             byte[] sectorNumberArray = new byte[1];
             byte[] masterKeyWithServiceID = new byte[masterKey.Length];
 
-            sectorNumberArray[0] = sectorNumber;
-            masterKey.CopyTo(masterKeyWithServiceID, 0);
-            sectorNumberArray.CopyTo(masterKeyWithServiceID, (masterKey.Length - 1));
+            if (sectorNumber != 0x00)
+            {
+                sectorNumberArray[0] = sectorNumber;
+                masterKey.CopyTo(masterKeyWithServiceID, 0);
+                sectorNumberArray.CopyTo(masterKeyWithServiceID, (masterKey.Length - 1));
+            }
+            else
+            {
+                masterKeyWithServiceID = masterKey;
+            }
 
             try
             {

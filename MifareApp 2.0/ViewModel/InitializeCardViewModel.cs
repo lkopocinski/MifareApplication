@@ -64,7 +64,7 @@ namespace MifareApp_2._0.ViewModel
         {
             Readers = new CardReader().getListReaders();
             Key = Constants.VIRGIN_MIFARE_KEY;
-            
+
             IsConnected = false;
 
             ConnectCommand = new RelayCommand(ConnectMethod);
@@ -79,25 +79,24 @@ namespace MifareApp_2._0.ViewModel
 
             if (SelectedReader.GetStatusChange(out status) == 0)
             {
+                string key = (IsMadCard) ? Constants.MAD_KEY : Key;
+                byte keyType = (IsMadCard) ? Constants.KEY_A : Constants.KEY_B;
+                     
                 SelectedReader.Connect(out status);
-                SelectedReader.LoadKey(0, Key, out status);
-                SelectedReader.Authentication(3, 0, Constants.KEY_B, out status);
-                IsConnected = (status == "> General Authenticate" + "   Successful \n") ? true : false;
+                SelectedReader.LoadKey(0, key, out status);
+                SelectedReader.Authentication(3, 0, keyType, out status);
+                IsConnected = (status.Equals("> General Authenticate" + "   Successful \n")) ? true : false;
 
-                string uid = (SelectedReader.Read(0, out status));
-                if (uid != "")
+                string manBlockValue = (SelectedReader.Read(0, out status));
+                if (!manBlockValue.Equals(""))
                 {
-                    UID = uid.Substring(0, 8);
+                    UID = manBlockValue.Substring(0, 8);
 
                     ServicesDaoImplement = new ServicesDaoImpl();
                     Services = ServicesDaoImplement.ServicesList;
                 }
                 else
                 {
-                    // Case when card is not non-personalized
-                    // or personalized not by Sambor & Kopocinski Company 
-                    // "FFFFFFFFFFFF" is not B key
-                    // Further personalization cannot be done
                     UID = Constants.NOT_NONPERSONALIZED_CARD;
                 }
             }
@@ -109,21 +108,16 @@ namespace MifareApp_2._0.ViewModel
 
         private void InitializeMadMethod()
         {
-            // DONE:
-            // Init block 3:
-            // Init A key equals A0A1A2A3A4A5
-            // Init B key equals FFFFFFFFFFFF (Shall be Set in Constants Class)
-            // Init access bits equals 0C33CFC1
-            // Init block 2 by PIN code, which can be read only with key B. Known for Card user and Base stations.
-            // Init Block 1 by our uniqe value. It shall indicate sth like Sambor&Kopocinski Company ID, eg. "6B6F6368616D206D6F6A61206D616D65"
+            byte[] uid = Conversions.toHexByteArrayFromString(UID);
+            Keys keys = new Keys(uid, 0x00);
 
-            MadBlockContent = Constants.MAD_INITIAL_SECTOR_TRAILER;
-            //string userPin = ((new Random()).Next(10000, 99999)).ToString();
-            string userPin = "12345";
+            string userPin = (new Random()).Next(10000, 99999).ToString();
             string secondBlockContent = Constants.EMPTY_BLOCK.Remove(0, 5) + userPin;
 
             UserPin = userPin;
-            SelectedReader.Write(3, out status, Conversions.toHexByteArrayFromString(Constants.MAD_INITIAL_SECTOR_TRAILER));
+            MadBlockContent = Constants.MAD_INITIAL_SECTOR_TRAILER + Conversions.ToString(keys.getB());
+
+            SelectedReader.Write(3, out status, Conversions.toHexByteArrayFromString(MadBlockContent));
             SelectedReader.Write(2, out status, Conversions.toHexByteArrayFromString(secondBlockContent));
             SelectedReader.Write(1, out status, Conversions.toHexByteArrayFromString(Constants.COMPANY_ID));
 
@@ -132,16 +126,6 @@ namespace MifareApp_2._0.ViewModel
 
         private void SaveServiceMethod()
         {
-            // DONE:
-            // It gets UID, Type of Service, Sector of that Service and MasterKey
-            // Using Keys class, generates A and B keys for above pointed Type of Service
-
-            // Set empty Wallet (00000000FFFFFFFF0000000010EF10EF) in block 1
-            // Block 0 is left empty (Entire block filled by 0)
-            // Block 2 shall be filled by ID of Service
-
-            // Set block 3: A + 08778F00 + B
-
             byte[] uid = Conversions.toHexByteArrayFromString(UID);
             Keys keys;
             byte sectorNumber;
@@ -169,7 +153,7 @@ namespace MifareApp_2._0.ViewModel
 
             KeyA = Conversions.ToString(keys.getA());
             KeyB = Conversions.ToString(keys.getB());   
-            AccessBits = "08778F00";
+            AccessBits = Constants.SERVICE_ACCESS_BITS;
             string sectorTrailerBlockVal = KeyA + AccessBits + KeyB;
 
             // Empty block
@@ -179,7 +163,7 @@ namespace MifareApp_2._0.ViewModel
             // Service's ID
             SelectedReader.Write(Convert.ToByte(trailerBlockNumber - 1), out status, Conversions.toHexByteArrayFromString(blockWithServiceId));
             // A + Access Bites + B
-            SelectedReader.Write(Convert.ToByte(trailerBlockNumber), out status, Conversions.toHexByteArrayFromString(sectorTrailerBlockVal)); 
+            SelectedReader.Write(Convert.ToByte(trailerBlockNumber), out status, Conversions.toHexByteArrayFromString(sectorTrailerBlockVal));
         }
     }
 }

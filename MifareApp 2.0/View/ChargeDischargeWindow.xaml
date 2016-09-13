@@ -37,7 +37,6 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-
                 <Label Grid.Row="0" Grid.Column="0" Content="Card reader:" Margin="5,5,5,5"/>
                 <ComboBox Grid.Row="0" Grid.Column="1" Width="Auto" Margin="5,5,5,5" ItemsSource="{Binding Readers}"  DisplayMemberPath="Name" SelectedValue="{Binding Path=SelectedReader, Mode=TwoWay}" />
                 <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" Margin="5,5,5,5">

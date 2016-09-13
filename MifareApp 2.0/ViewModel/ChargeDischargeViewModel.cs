@@ -4,9 +4,11 @@ using MifareApp_2._0.Model;
 using PropertyChanged;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace MifareApp_2._0.ViewModel
 {
@@ -73,16 +75,18 @@ namespace MifareApp_2._0.ViewModel
             if (SelectedReader.GetStatusChange(out status) == 0)
             {
                 SelectedReader.Connect(out status);
-                SelectedReader.LoadKey(0, Constants.VIRGIN_MIFARE_KEY, out status);
-                SelectedReader.Authentication(3, 0, Constants.KEY_B, out status);
+                SelectedReader.LoadKey(0, Constants.MAD_KEY, out status);
+                SelectedReader.Authentication(3, 0, Constants.KEY_A, out status);
 
-                string uid = (SelectedReader.Read(0, out status));
-                if (uid != "")
+                string manBlockValue = (SelectedReader.Read(0, out status));
+                if (!manBlockValue.Equals(""))
                 {
-                    UID = uid.Substring(0, 8);
+                    UID = manBlockValue.Substring(0, 8);
+                    byte[] uidValue = Conversions.toHexByteArrayFromString(UID);
+                    Keys keys = new Keys(uidValue, 0x00);
 
                     SelectedReader.Connect(out status);
-                    SelectedReader.LoadKey(0, Constants.VIRGIN_MIFARE_KEY, out status);
+                    SelectedReader.LoadKey(0, Conversions.ToString(keys.getB()), out status);
                     SelectedReader.Authentication(2, 0, Constants.KEY_B, out status);
                     UserPin = (SelectedReader.Read(2, out status)).Substring(27, 5);
 
@@ -91,8 +95,6 @@ namespace MifareApp_2._0.ViewModel
                 }
                 else
                 {
-                    // Card doesn't belong to Sambor & Kopociński Company
-                    // Access Denied
                     UID = Constants.ACCESS_DENIED;
                 }
             }

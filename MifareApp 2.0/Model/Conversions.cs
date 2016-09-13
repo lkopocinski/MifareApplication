@@ -27,7 +27,7 @@ namespace MifareApp_2._0.Model
                 numHexChars--;
             }
 
-            return numHexChars / 2;
+            return (numHexChars / 2);
         }
 
         public static byte[] GetBytes(string hexString, out int discarded)

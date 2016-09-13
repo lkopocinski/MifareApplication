@@ -106,6 +106,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Constants.cs" />
+    <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\ObjectToBooleanConverter.cs" />
     <Compile Include="Model\CardReader.cs" />
     <Compile Include="Model\Conversions.cs" />

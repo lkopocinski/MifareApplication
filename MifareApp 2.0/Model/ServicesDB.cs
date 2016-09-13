@@ -25,7 +25,10 @@ namespace MifareApp_2._0.Model
             ServicesDBList.Add(new ServiceDB("Gokarty", 0x09, 0x09));
             ServicesDBList.Add(new ServiceDB("Coyote", 0x0A, 0x0A));
             ServicesDBList.Add(new ServiceDB("Grey", 0x0B, 0x0B));
-
+            ServicesDBList.Add(new ServiceDB("Kregle", 0x0C, 0x0C));
+            ServicesDBList.Add(new ServiceDB("Usluga_13", 0x0D, 0x0D));
+            ServicesDBList.Add(new ServiceDB("Usluga_14", 0x0E, 0x0E));
+            ServicesDBList.Add(new ServiceDB("Usluga_15", 0x0F, 0x0F));
         }
 
         public class ServiceDB
