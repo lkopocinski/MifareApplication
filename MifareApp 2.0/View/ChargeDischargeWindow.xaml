@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MifareApp_2._0.View"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:local="clr-namespace:MifareApp_2._0.View"
         mc:Ignorable="d"
         DataContext="{Binding Path=ChargeDischarge, Source={StaticResource Locator}}"
         Background="{StaticResource BackgroundKey}"
@@ -37,12 +37,11 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-
                 <Label Grid.Row="0" Grid.Column="0" Content="Card reader:" Margin="5,5,5,5"/>
                 <ComboBox Grid.Row="0" Grid.Column="1" Width="Auto" Margin="5,5,5,5" ItemsSource="{Binding Readers}"  DisplayMemberPath="Name" SelectedValue="{Binding Path=SelectedReader, Mode=TwoWay}" />
                 <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" Margin="5,5,5,5">
-                    <Label Content="UID: "/>
-                    <Label Content="{Binding Path=UID}"/>
+                    <Label Content="User PIN: "/>
+                    <Label Content="{Binding Path=UserPin}"/>
                 </StackPanel>
 
                 <Button Grid.Row="1" Grid.Column="2" Content="CONNECT" Margin="5,5,5,5" Command="{Binding ConnectCommand}" />
@@ -86,8 +85,8 @@
                     <TextBox Grid.Column="1" Text="{Binding ValueToSave, Mode=TwoWay}" FontSize="23" HorizontalContentAlignment="Center"  />
                     <Button  Grid.Column="2" Content="+" FontSize="20" Command="{Binding IncrementCommand}"  />
                 </Grid>
-                
-                <Button Grid.Row="3" Grid.Column="2" Content="CONFIRM" Margin="5,5,5,5" Command="{Binding ConfirmCommand}" />
+
+                <Button Grid.Row="3" Grid.Column="2" Content="CONFIRM" Margin="5,5,5,5" Command="{Binding ConfirmCommand}" IsEnabled="{Binding SelectedService, Converter={StaticResource ObjectToBool}, Mode=OneWay}"/>
 
             </Grid>
         </GroupBox>

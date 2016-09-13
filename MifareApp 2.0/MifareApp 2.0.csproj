@@ -106,10 +106,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Constants.cs" />
+    <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\ObjectToBooleanConverter.cs" />
     <Compile Include="Model\CardReader.cs" />
+    <Compile Include="Model\Conversions.cs" />
+    <Compile Include="Model\HID.cs" />
+    <Compile Include="Model\Keys.cs" />
     <Compile Include="Model\Sector.cs" />
     <Compile Include="Model\Service.cs" />
+    <Compile Include="Model\ServicesDao.cs" />
+    <Compile Include="Model\ServicesDaoImpl.cs" />
+    <Compile Include="Model\ServicesDB.cs" />
     <Compile Include="ViewModel\ChargeDischargeViewModel.cs" />
     <Compile Include="ViewModel\CreateServiceViewModel.cs" />
     <Compile Include="ViewModel\InitializeCardViewModel.cs" />

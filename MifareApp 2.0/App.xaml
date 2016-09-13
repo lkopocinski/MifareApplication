@@ -23,7 +23,8 @@
 
             <BooleanToVisibilityConverter x:Key="BoolToVis"/>
             <c:ObjectToBooleanConverter x:Key="ObjectToBool"/>
-
+            <c:InverseBooleanConverter x:Key="InverseBool"/>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>
